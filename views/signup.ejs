@@ -1,0 +1,54 @@
+<%- include('./parts/header.ejs') %>
+    <%- include('./parts/navbar.ejs') %>
+        <div class="container text-center">
+            <h3>Creat Account</h3>
+            <form action="/signup" method="POST">
+                <input type="text" class="form-control" name="username" placeholder="username">
+                <% let usernameError=validationErrors.find(err=> err.param === 'username') %>
+                    <% if(usernameError){ %>
+                        <p class="alert alert-danger">
+                            <%= usernameError.msg %>
+                        </p>
+                        <% } %>
+                            <br>
+                            <input type="email" class="form-control" name="email" placeholder="E-mail">
+
+                            <% let emailError=validationErrors.find(err=> err.param === 'email') %>
+                                <% if(emailError){ %>
+                                    <p class="alert alert-danger">
+                                        <%= emailError.msg %>
+                                    </p>
+                                    <% } %>
+                                        <br>
+                                        <input type="password" class="form-control" name="password"
+                                            placeholder="password">
+                                        <br>
+                                        <input type="password" class="form-control" name="confirmPassword"
+                                            placeholder="confirmPassword">
+                                        <br>
+                                        <input type="submit" value="Creat Account" class="btn btn-primary">
+            </form>
+            <% if(authError){ %>
+                <br>
+                <p class="alert alert-danger">
+                    <%= authError %>
+                </p>
+                <% } %>
+
+                    <% for(let error of validationErrors){ %>
+                        <p class="alert alert-danger">
+                            <%= error.msg %>
+                        </p>
+                        <% } %>
+                            <br>
+                            <div>
+                                Already have account ? <a href="/login">Login</a>
+                            </div>
+        </div>
+
+
+        <%- include('./parts/scripts.ejs') %>
+
+            </body>
+
+            </html>

@@ -1,0 +1,49 @@
+<%- include('./parts/header.ejs') %>
+    <%- include('./parts/navbar.ejs') %>
+        <div class="container">
+            <div class="row">
+                <div class="col col-12 col-md-4">
+                    <img width="100px" src="/<%= userImage %>" alt="">
+                </div>
+
+                <div class="col col-12 col-md-4">
+                    <h3>
+                        <%= username %>
+                    </h3>
+                    <% if(!isOwner) {%>
+                        <form method="post" id="friends-form">
+                            <input id="myId" type="hidden" name="myId" value="<%= myId %>">
+                            <input id="myName" type="hidden" name="myName" value="<%= myName %>">
+                            <input id="myImage" type="hidden" name="myImage" value="<%= myImage %>">
+                            <input id="friendId" type="hidden" name="friendId" value="<%= friendId %>">
+                            <input id="userImage" type="hidden" name="userImage" value="<%= userImage %>">
+                            <input id="friendName" type="hidden" name="friendName" value="<%= username %>">
+                            <% if(isFriends){ %>
+                                <input type="submit" value="Delete friend" class="btn btn-danger"
+                                    formaction="/friend/delete">
+                                <% } else if(isRequestSent) {%>
+                                    <input type="submit" value="Cancel Request" class="btn btn-danger"
+                                        formaction="/friend/cancel">
+                                    <% } else if( isRequestRecieved){%>
+                                        <input type="submit" value="Accept Fried Requst" class="btn btn-success"
+                                            formaction="/friend/accept">
+                                        <input type="submit" value="Reject" class="btn btn-danger"
+                                            formaction="/friend/reject">
+                                        <% } else{%>
+                                            <input id="addBtn" type="submit" value="Add Friend" class="btn btn-info">
+                                            <% } %>
+                                                <% } %>
+                        </form>
+
+
+
+                        <%- include('./parts/scripts.ejs') %>
+                            <script src="/socket.io/socket.io.js"></script>
+                            <script src="/js/sockets/init.js"></script>
+                            <% if(!isOwner && !isFriends && !isRequestSent && !isRequestRecieved){ %>
+                                <script src="/js/sockets/friend.js"></script>
+
+                                <% } %>
+                                    </body>
+
+                                    </html>
